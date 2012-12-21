@@ -1,7 +1,8 @@
 if (Meteor.isClient) {
 
   Template.survivors_list.survivors = function() {
-    return Survivors.find({}, {sort: {likes: -1, name: 1}});
+    // return Survivors.find({}, {sort: {likes: -1, name: 1}});
+    return Survivors.find({}, {sort: {score: -1} });
   };
 
   Template.survivors.events = {
@@ -28,14 +29,37 @@ if (Meteor.isClient) {
 
   function insert() {
     FB.api('/me', function(response) {
-      console.log( response );
 
       var id = response.id,
       name = response.first_name + " " + response.middle_name,
       avatar = "https://graph.facebook.com/" + id + "/picture",
       location = response.location.name;
 
-      Survivors.insert({ id: id, user: name, avatar: avatar, location: location });
+      var ids = function() {
+
+        var userIds = new Array();
+
+        Survivors.find({}).forEach(function(survivors) {
+          if (userIds.indexOf(survivors.id) === -1) {
+            userIds.push(survivors.id);
+          }
+        });
+
+        return userIds;
+      }
+
+
+      var listIds = ids(),
+          myUser = id,
+          UserExist = $.inArray( myUser, listIds );
+
+      if ( UserExist == -1 ) {
+        Survivors.insert({ id: id, user: name, avatar: avatar, location: location });
+      }
+      else {
+        alert("Você já é um sobrevivente");
+      }
+
     })
 
   }
