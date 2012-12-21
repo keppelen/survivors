@@ -8,16 +8,10 @@ if (Meteor.isClient) {
     'click #inset-survivors': function() {
        FB.login(function(response) {
           if (response.authResponse) {
-            FB.api('/me', function(response) {
-              $("#name").text( response.name );
-              $("#id").text( response.id );
-              $("#avatar").attr("src","https://graph.facebook.com/" + response.id + "/picture");
 
-              insert();
-            })
+            insert();
 
             var body = 'Reading Connect JS documentation';
-
              FB.api('/me/feed', 'post', { body: body, message: 'Eu sou um sobrevivente do FIM DO MUNDO, se você é um também avise aqui.' }, function(response) {
                  if (!response || response.error) {
                     console.log(response);
@@ -25,6 +19,7 @@ if (Meteor.isClient) {
                     console.log('Post ID: ' + response);
                   }
             });
+
           }
         })
       }
@@ -32,14 +27,16 @@ if (Meteor.isClient) {
   };
 
   function insert() {
+    FB.api('/me', function(response) {
+      console.log( response );
 
-    var name = $("#name").text(),
-        id = $("#id").text();
-        avatar = "https://graph.facebook.com/" + id + "/picture";
+      var id = response.id,
+      name = response.first_name + " " + response.middle_name,
+      avatar = "https://graph.facebook.com/" + id + "/picture",
+      location = response.location.name;
 
-    Survivors.insert({ id: id, user: name, avatar: avatar });
-
-    $(".list").show();
+      Survivors.insert({ id: id, user: name, avatar: avatar, location: location });
+    })
 
   }
 

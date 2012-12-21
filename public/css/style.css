@@ -37,7 +37,7 @@ h1 {
 
   .list li {
     display: inline-block;
-    margin: 5px 10px 15px 0;
+    margin: 5px 40px 15px 0;
     width: 100px;
     height: 160px;
     text-align: center;
@@ -46,6 +46,11 @@ h1 {
   .list img {
     width: 100px;
     display: block;
+    border-radius: 50%;
+    margin-top: 5px;
+
+    -webkit-box-shadow: 2px 2px 2px #333;
+    box-shadow: 2px 2px 2px #333;
   }
 
   .list p {
@@ -117,8 +122,8 @@ h1 {
 
 #inset-survivors {
   position: absolute;
-  top: 16%;
-  left: 43%;
+  top: 17%;
+  left: 37%;
 }
 
 .list {
@@ -127,8 +132,8 @@ h1 {
 
 .footer {
   position: absolute;
-  bottom: 20px;
-  margin-left: 43%;
+  top: 19%;
+  left: 51%;
 }
 
 .none {
