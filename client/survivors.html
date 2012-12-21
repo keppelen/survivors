@@ -1,0 +1,40 @@
+<head>
+  <title>Survivors end of the world</title>
+  <link rel="stylesheet" href="css/style.css" media="all">
+</head>
+
+<body>
+  {{> survivors}}
+
+  {{> survivors_list}}
+  <div id="fb-root"></div>
+</body>
+
+<template name="survivors">
+  <h1>Survivors end of the world</h1>
+  <div id="dados-user" class="none">
+      <span id="name"></span>
+      <span id="id" style="display: none"></span>
+      <img src="" id="avatar" />
+    </div>
+
+  <a id="cad-usuario" class="btn secondary"><span></span>I am a survivor</a>
+
+</template>
+
+<template name="survivors_list">
+
+    <ul class="list">
+      {{#each survivors}}
+        <li>
+          <p>{{user}}</p>
+          <img src="{{avatar}}" alt="">
+        </li>
+      {{/each}}
+    </ul>
+
+    <footer class="footer">
+      <div class="fb-like" data-href="http://survivors.meteor.com/" data-send="true" data-layout="box_count" data-width="100" data-show-faces="true" data-font="verdana"></div>
+    </footer>
+
+</template>
