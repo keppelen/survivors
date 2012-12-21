@@ -1,13 +1,11 @@
 if (Meteor.isClient) {
 
-  //LISTAGEM DOS PERFIL GRAVADOS
   Template.survivors_list.survivors = function() {
     return Survivors.find({}, {sort: {likes: -1, name: 1}});
   };
 
   Template.survivors.events = {
-    //Quando usuário loga pelo bt
-    'click #cad-usuario': function() {
+    'click #inset-survivors': function() {
        FB.login(function(response) {
           if (response.authResponse) {
             FB.api('/me', function(response) {
@@ -33,21 +31,17 @@ if (Meteor.isClient) {
 
   };
 
-  //cadastrando as informações do usuario
-    function insert() {
+  function insert() {
 
-      var name = $("#name").text(),
-          id = $("#id").text();
-          avatar = "https://graph.facebook.com/" + id + "/picture";
+    var name = $("#name").text(),
+        id = $("#id").text();
+        avatar = "https://graph.facebook.com/" + id + "/picture";
 
-      Survivors.insert({ id: id, user: name, avatar: avatar });
+    Survivors.insert({ id: id, user: name, avatar: avatar });
 
+    $(".list").show();
 
-      $(".list").show();
-
-    }
-
-
+  }
 
 
   //FACEBOOK
@@ -64,9 +58,7 @@ if (Meteor.isClient) {
     // Additional initialization code such as adding Event Listeners goes here
     FB.getLoginStatus(function(response) {
       if (response.status === 'connected') {
-
         $(".list").show();
-
       } else if (response.status === 'not_authorized') {
         // not_authorized
         $("#cad-usuario").show();
